@@ -1,3 +1,5 @@
+import os
+
 def checkMenu():
     print("MENU")
     print("====================")
@@ -5,26 +7,51 @@ def checkMenu():
     print("2. Americano == ₱75 |")
     print("3. Latte     == ₱55 |")
     print("====================")
-    input("Press Enter to go back to Main Menu...")  # para makita muna bago bumalik
+    input("Press Enter to go back to Main Menu...")  
 
 
 def order():
+    menu = {
+        1: ("Espresso", 65),
+        2: ("Americano", 75),
+        3: ("Latte", 55)
+    }
+
+    total = 0
+
     print("MENU")
     print("====================")
-    print("1. Espresso  == ₱65 |")
-    print("2. Americano == ₱75 |")
-    print("3. Latte     == ₱55 |")
+    for key, (item, price) in menu.items():
+        print(f"{key}. {item:<10} == ₱{price}")
     print("====================")
-    order = int(input("Enter your Order: "))
-    print(f"You ordered #{order}")
-    input("Press Enter to go back to Main Menu...")  # same pause
+
+    while True:
+        try:
+            choice = int(input("Enter your order (0 to finish): "))
+            
+            if choice == 0:  # Exit ordering
+                break
+
+            if choice in menu:
+                item, price = menu[choice]
+                print(f"You ordered {item}")
+                total += price
+            else:
+                print("Error::: Enter a valid number!")
+
+        except ValueError:
+            print("Error::: Please enter a number only.")
+
+    print("\nYour total order is: ₱" + str(total))
+    input("Press Enter to continue...")
 
 
 def mainMenu():
     print("=================")
     print("1. Check Menu")
     print("2. Order")
-    print("3. Exit")
+    print("3. Chek Order")
+    print("4. Exit")
     print("=================")
     choice = int(input("Enter your choice: "))
 
@@ -41,6 +68,8 @@ def mainMenu():
 
 
 while True:
+    os.system("cls")
     print("\nWelcome, Customers")
     print("---Coffee Yow!----")
+    print("==================")
     mainMenu()
